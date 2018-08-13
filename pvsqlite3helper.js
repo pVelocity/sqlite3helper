@@ -16,6 +16,7 @@ module.exports = {
         if (PV.isDatabase(this.db) === false) {
             this.db = prom.promisifyAll(new sqlite3.Database(':memory:'));
         }
+        return this.db;
     },
 
     setColumnMappings: function(tblName, groups, fields) {
@@ -73,7 +74,7 @@ module.exports = {
 
     insertEngineResults: function(tblName, tblData, groups, fields) {
         var stmt = null;
-        return prom.Promise(function(resolve, reject) {
+        return new prom.Promise(function(resolve, reject) {
             if (PV.isString(tblName) && PV.isArray(tblData) && (PV.isArray(groups) || PV.isArray(fields))) {
                 var cols = [];
                 if (PV.isArray(groups)) {
