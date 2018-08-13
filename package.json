@@ -1,0 +1,28 @@
+{
+  "name": "sqlite3helper",
+  "version": "1.0.0",
+  "description": "This is an npm module design to perform common sqlite3 with pVelocity's pvserver",
+  "main": "sqlite3helper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pVelocity/sqlite3helper.git"
+  },
+  "keywords": [
+    "pVelocity",
+    "pvserver"
+  ],
+  "author": "Allen Allen Chung <allen.chung@pvelocity.com> (http://www.pvelocity.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pVelocity/sqlite3helper/issues"
+  },
+  "homepage": "https://github.com/pVelocity/sqlite3helper#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "pvjs": "^1.0.7",
+    "sqlite3": "^4.0.2"
+  }
+}
