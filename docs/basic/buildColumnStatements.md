@@ -3,11 +3,15 @@ Returns a string that represents the columns of a `SELECT` statement using the c
 - `tblName` `<String>`
 - `groups` `<Array>`
 - `fields` `<Array>`
-- `prefix` `<String>` : Optional, default is ``
-- `suffix` `<String>` : Optional, default is ``
+- `prefix` `<String>` : Optional, default is `''`
+- `suffix` `<String>` : Optional, default is `''`
 - `leftOrRight` `<String>` : Optional, default is `null`
 - `aliasTblName` `<String>` : Optional, default is `null`
 
 ```js
-var selectStmt = 'SELECT ' + sqlh.buildColumnStatements('Test', ['group0', 'group1'], ['field0', 'field1'], 'ISNULL(', ', N/A)') + ' FROM Test';
+var groups = ['group0', 'group1'];
+var fields = ['field0', 'field1'];
+var prefix = 'ISNULL(';
+var suffix = ", 'N/A')";
+var selectStmt = 'SELECT ' + sqlh.buildColumnStatements('Test', groups, fields, prefix, suffix) + ' FROM Test';
 ```
