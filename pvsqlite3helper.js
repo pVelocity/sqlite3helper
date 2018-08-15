@@ -225,7 +225,7 @@ module.exports = {
             var selCols = [];
 
             var leftGroupColSelect = this.buildColumnStatements(joinInfo.left.tblName, joinInfo.left.groups, null, 'IFNULL(A.', ', \'- N/A -\')', 'left', tblName);
-            var leftFieldColSelect = this.buildColumnStatements(joinInfo.left.tblName, null, joinInfo.left.fields, 'IFNULL(A.', ', 0)', tblName, 'left', tblName);
+            var leftFieldColSelect = this.buildColumnStatements(joinInfo.left.tblName, null, joinInfo.left.fields, 'IFNULL(A.', ', 0)', 'left', tblName);
 
             var rightGroupColSelect = this.buildColumnStatements(joinInfo.right.tblName, joinInfo.right.groups, null, 'IFNULL(B.', ', \'- N/A -\')', 'right', tblName);
             var rightFieldColSelect = this.buildColumnStatements(joinInfo.right.tblName, null, joinInfo.right.fields, 'IFNULL(B.', ', 0)', 'right', tblName);
@@ -250,16 +250,16 @@ module.exports = {
             var insertStmt = 'INSERT INTO ' + tblName + ' (' + leftColInsert + ', ' + rightColInsert + ')';
 
             if (joinInfo.type === 'FULL JOIN') {
-                var unionStmt = 'SELECT ' + selCols.join(', ') +
+                var leftStmt = 'SELECT ' + selCols.join(', ') +
                     ' FROM ' + joinInfo.left.tblName + ' AS A' +
                     ' LEFT JOIN ' + joinInfo.right.tblName + ' AS B' +
-                    ' ON ' + onStmt.join(' AND ') +
-                    ' UNION ALL' +
-                    ' SELECT ' + selCols.join(', ') +
+                    ' ON ' + onStmt.join(' AND ');
+                var rightStmt = 'SELECT ' + selCols.join(', ') +
                     ' FROM ' + joinInfo.right.tblName + ' AS B' +
                     ' LEFT JOIN ' + joinInfo.left.tblName + ' AS A' +
                     ' ON ' + onStmt.join(' AND ') +
                     ' WHERE ' + whereStmt.join(' AND ');
+                var unionStmt = leftStmt + ' UNION ALL ' + rightStmt;
 
                 return db.runAsync(insertStmt + ' ' + unionStmt);
             } else {
