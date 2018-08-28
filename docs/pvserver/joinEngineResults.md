@@ -1,7 +1,9 @@
-### ``joinEngineResults(tblName, joinInfo)``
-Performs `JOIN` operation based on ``joinInfo`` to create a new table under ``tblName`` and returns its groups and fields. ColumnMappings are set for ``tblName`` with ``groups`` and ``fields``. Database is initialized if not already. If a table already exists under ``tblName``, it will be overwritten along with the columnMappings.
+### ``joinEngineResults(tblName, joinInfo, removeGroupNull, removeFieldNull)``
+Performs `JOIN` operation based on ``joinInfo`` to create a new table under ``tblName`` and returns its groups and fields. ColumnMappings are set for ``tblName`` with ``groups`` and ``fields``. Database is initialized if not already. If a table already exists under ``tblName``, it will be overwritten along with the columnMappings. If ``removeGroupNull`` or ``removeFieldNull`` is ``true``, ``null`` values will be removed rather than be replaced with ``- N/A -`` for ``groups`` and ``0`` for ``fields``.
 - `tblName` `<String>`
 - `joinInfo` `<Object>`
+- `removeGroupNull` `<Boolean>`: Optional, default is `false`
+- `removeFieldNull` `<Boolean>`: Optional, default is `false`
 ```js
 var joinInfo = {
     type: 'JOIN',

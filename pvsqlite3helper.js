@@ -215,7 +215,7 @@ module.exports = {
         return arr;
     },
 
-    joinEngineResults: function(tblName, joinInfo) {
+    joinEngineResults: function(tblName, joinInfo, removeGroupNull, removeFieldNull) {
         this.getDatabase();
         var groups = this.getJoinGroupsOrFields(joinInfo.left.groups, joinInfo.right.groups);
         var fields = this.getJoinGroupsOrFields(joinInfo.left.fields, joinInfo.right.fields);
@@ -224,11 +224,33 @@ module.exports = {
         }.bind(this)).then(function() {
             var selCols = [];
 
-            var leftGroupColSelect = this.buildColumnStatements(joinInfo.left.tblName, joinInfo.left.groups, null, 'IFNULL(A.', ', \'- N/A -\')', 'left', tblName);
-            var leftFieldColSelect = this.buildColumnStatements(joinInfo.left.tblName, null, joinInfo.left.fields, 'IFNULL(A.', ', 0)', 'left', tblName);
+            var aGroupPrefix = 'IFNULL(A.';
+            var bGroupPrefix = 'IFNULL(B.';
+            var aGroupSuffix = ', \'- N/A -\')';
+            var bGroupSuffix = ', \'- N/A -\')';
+            if (removeGroupNull === true) {
+                aGroupPrefix = 'A.';
+                bGroupPrefix = 'B.';
+                aGroupSuffix = '';
+                bGroupSuffix = '';
+            }
 
-            var rightGroupColSelect = this.buildColumnStatements(joinInfo.right.tblName, joinInfo.right.groups, null, 'IFNULL(B.', ', \'- N/A -\')', 'right', tblName);
-            var rightFieldColSelect = this.buildColumnStatements(joinInfo.right.tblName, null, joinInfo.right.fields, 'IFNULL(B.', ', 0)', 'right', tblName);
+            var aFieldPrefix = 'IFNULL(A.';
+            var bFieldPrefix = 'IFNULL(B.';
+            var aFieldSuffix = ', 0)';
+            var bFieldSuffix = ', 0)';
+            if (removeFieldNull === true) {
+                aFieldPrefix = 'A.';
+                bFieldPrefix = 'B.';
+                aFieldSuffix = '';
+                bFieldSuffix = '';
+            }
+
+            var leftGroupColSelect = this.buildColumnStatements(joinInfo.left.tblName, joinInfo.left.groups, null, aGroupPrefix, aGroupSuffix, 'left', tblName);
+            var leftFieldColSelect = this.buildColumnStatements(joinInfo.left.tblName, null, joinInfo.left.fields, aFieldPrefix, aFieldSuffix, 'left', tblName);
+
+            var rightGroupColSelect = this.buildColumnStatements(joinInfo.right.tblName, joinInfo.right.groups, null, bGroupPrefix, bGroupSuffix, 'right', tblName);
+            var rightFieldColSelect = this.buildColumnStatements(joinInfo.right.tblName, null, joinInfo.right.fields, bFieldPrefix, bFieldSuffix, 'right', tblName);
 
             if (leftGroupColSelect !== '') { selCols.push(leftGroupColSelect); }
             if (leftFieldColSelect !== '') { selCols.push(leftFieldColSelect); }
