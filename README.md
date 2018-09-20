@@ -17,6 +17,7 @@ var sqlh = require('pvsqlite3helper');
 ## Methods
 
 ### Basic
+- [setVerbose](docs/basic/setVerbose.md)
 - [getDatabase](docs/basic/getDatabase.md)
 - [closeDatabase](docs/basic/closeDatabase.md)
 - [getColumnMappings](docs/basic/getColumnMappings.md)
