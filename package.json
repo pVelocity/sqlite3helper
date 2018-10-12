@@ -22,9 +22,11 @@
   "homepage": "https://github.com/pVelocity/pvsqlite3helper#readme",
   "dependencies": {
     "bluebird": "^3.5.2",
-    "pvjs": "^1.0.7"
+    "pvjs": "^1.0.7",
+    "sqlite3": "^4.0.2"
   },
   "files": [
-    "*"
+    "./docs/*",
+    "./node_modules/sqlite3/lib/binding/*"
   ]
 }
