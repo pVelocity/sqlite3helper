@@ -5,7 +5,7 @@
 /* jshint node: true */
 /* jshint unused: false */
 require('pvjs');
-var sqlite3 = require('sqlite3');
+var sqlite3 = require('./sqlite3package/sqlite3package.js');
 var prom = require('bluebird');
 var columnMappings = {};
 var db = null;
@@ -15,17 +15,13 @@ module.exports = {
     setVerbose: function(verbose) {
         if (isVerbose !== verbose) {
             isVerbose = verbose;
-            if (verbose) {
-                sqlite3 = require('sqlite3').verbose();
-            } else {
-                sqlite3 = require('sqlite3');
-            }
+            sqlite3.setVerbose(verbose);
         }
     },
 
     getDatabase: function() {
         if (PV.isDatabase(db) === false || db.open === false) {
-            db = prom.promisifyAll(new sqlite3.Database(':memory:'));
+            db = prom.promisifyAll(new (sqlite3.get()).Database(':memory:'));
         }
         return db;
     },
