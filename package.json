@@ -23,7 +23,7 @@
   "dependencies": {
     "bluebird": "^3.5.2",
     "pvjs": "^1.0.7"
-  }
+  },
   "files": [
     "*"
   ]
