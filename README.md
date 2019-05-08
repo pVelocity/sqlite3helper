@@ -25,12 +25,14 @@ var sqlh = require('pvsqlite3helper');
 - [normalizeColName](docs/basic/normalizeColName.md)
 - [buildColumnStatements](docs/basic/buildColumnStatements.md)
 - [createTable](docs/basic/createTable.md)
+- [getCombination](docs/basic/getCombination.md)
 
 ### pvserver
 - [insertEngineResults](docs/pvserver/insertEngineResults.md)
 - [getEngineResults](docs/pvserver/getEngineResults.md)
 - [forEachEngineResults](docs/pvserver/forEachEngineResults.md)
 - [joinEngineResults](docs/pvserver/joinEngineResults.md)
+- [createSummaryEngineResults](docs/pvserver/createSummaryEngineResults.md)
 
 ## License
 
