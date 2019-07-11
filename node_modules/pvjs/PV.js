@@ -203,8 +203,8 @@ var root = (typeof window === 'undefined') ? global : window;
         if (PV.isString(str)) {
             for (let s of str) {
                 let d = s.charCodeAt(0);
-                //only encode upper cases, A-z
-                if (d >= 65 && d <= 90) {
+                //only encode upper cases, A-Z or *
+                if ((d >= 65 && d <= 90) ||(d === 42)) {
                     let h = s.charCodeAt(0).toString(16);
                     if (h.length % 2) {
                         h = '0' + h;
