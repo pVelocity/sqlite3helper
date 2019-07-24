@@ -820,6 +820,10 @@ var root = (typeof window === 'undefined') ? global : window;
         return false;
     };
     root.PV.getTimeStamp = function() {
+        // deprecated
+        return PV.getTimestamp();
+    };
+    root.PV.getTimestamp = function() {
         var currentDT = new Date();
         var dd = currentDT.getDate();
         var mm = currentDT.getMonth() + 1; //January is 0!

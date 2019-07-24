@@ -90,7 +90,7 @@ require('pvjs');
 - [trim](docs/utility/trim.md)
 - [pad](docs/utility/pad.md)
 - [getUrls](docs/utility/getUrls.md)
-- [getTimeStamp](docs/utility/getTimeStamp.md)
+- [getTimestamp](docs/utility/getTimestamp.md)
 - [replaceAll](docs/utitlity/replaceAll.md)
 
 ## License
