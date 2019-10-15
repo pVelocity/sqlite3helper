@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/pVelocity/pvsqlite3helper#readme",
   "dependencies": {
-    "bluebird": "^3.5.4",
+    "bluebird": "^3.7.1",
     "fs-extra": "^7.0.1",
-    "pvjs": "^1.0.14",
-    "sqlite3": "^4.0.7"
+    "pvjs": "^1.0.18",
+    "sqlite3": "^4.1.0"
   }
 }
