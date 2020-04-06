@@ -65,6 +65,8 @@ require('pvjs');
 - [convertStrToBool](docs/conversion/convertStrToBool.md)
 - [convertStrToFloat](docs/conversion/convertStrToFloat.md)
 - [convertStrToDate](docs/conversion/convertStrToDate.md)
+- [getColumnKeyByIndex](docs/conversion/getColumnKeyByIndex.md)
+- [getIndexByColumnKey](docs/conversion/getIndexByColumnKey.md)
 
 ### Arrays
 - [ensureArray](docs/arrays/ensureArray.md)

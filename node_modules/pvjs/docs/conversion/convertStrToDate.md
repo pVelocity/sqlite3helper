@@ -1,5 +1,5 @@
 ### ``convertStrToDate(string, defaultDate)``
-Returns a equivalent date value for ``string``.
+Returns an equivalent date value for ``string``.
 
 - `string` `<String>`
 - `defaultDate` `<Date>`: Optional, default is `new Date()`

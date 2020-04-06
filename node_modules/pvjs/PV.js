@@ -828,6 +828,52 @@ var root = (typeof window === 'undefined') ? global : window;
         }
         return false;
     };
+    root.PV.getColumnKeyByIndex = function(index) {
+        var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+        var len = alphabet.length;
+        var colKey = '';
+        var left = index + 1; //index is base 0
+
+        for (; left > 0;) {
+            var mod = left;
+            if (mod > len) {
+                mod = left % len;
+            }
+            var index = 0;
+            if (mod === 0) {
+                index = len - 1;
+            } else {
+                index = mod - 1;
+            }
+            colKey = alphabet[index].toUpperCase() + colKey;
+            left = Math.floor(left / 26.0);
+            if (left === 1 && mod === len) {
+                break;
+            }
+        }
+        return colKey;
+    };
+    root.PV.getIndexByColumnKey = function(colKey) {
+        var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+        var index = 0;
+        if (PV.isString(colKey)) {
+            var chKey = colKey.split('');
+            var digit = 0;
+            for (var i = chKey.length - 1; i >= 0; i--) {
+                var chIndex = alphabet.indexOf(chKey[i].toLowerCase());
+                if (chIndex === -1) {
+                    return -1;
+                }
+                if (digit === 0) {
+                    index = chIndex;
+                } else {
+                    index += (Math.pow(26, digit) * (chIndex + 1));
+                }
+                digit++;
+            }
+        }
+        return index;
+    };
     root.PV.getTimeStamp = function() {
         // deprecated
         return PV.getTimestamp();
