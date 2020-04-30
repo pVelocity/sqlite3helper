@@ -32,6 +32,11 @@ var root = (typeof window === 'undefined') ? global : window;
             if (!isFinite(o)) {
                 return 'infinity';
             }
+        } else if (type === 'asyncfunction') {
+            // handle AsyncFunction and Function
+            if (t === 'function'){
+                return 'function';
+            }
         }
 
         return type;
@@ -44,6 +49,7 @@ var root = (typeof window === 'undefined') ? global : window;
         'Date',
         'Element',
         'Function',
+        'AsyncFunction',
         'Infinity',
         'NaN',
         'Null',

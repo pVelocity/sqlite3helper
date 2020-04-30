@@ -6,7 +6,7 @@
 /* jshint unused: false */
 require('pvjs');
 let sqlite3 = require('sqlite3');
-let prom = require('bluebird');
+let util = require('util');
 let columnMappings = {};
 let db = null;
 let isVerbose = false;
@@ -25,23 +25,26 @@ module.exports = {
 
   getDatabase: function() {
     if (PV.isDatabase(db) === false || db.open === false) {
-      db = prom.promisifyAll(new sqlite3.Database(':memory:'));
+      db = new sqlite3.Database(':memory:');
+      db.closeAsync = util.promisify(db.close);
+      db.runAsync = util.promisify(db.run);
+      db.prepareAsync = util.promisify(db.prepare);
+      db.allAsync = util.promisify(db.all);
+      db.eachAsync = util.promisify(db.each);
     }
     return db;
   },
 
-  closeDatabase: function() {
-    return new prom(function(resolve, reject) {
-      if (PV.isDatabase(db) && db.open === true) {
-        return db.closeAsync().then(function() {
-          db = null;
-          resolve();
-        });
-      } else {
+  closeDatabase: async function() {
+    if (PV.isDatabase(db) && db.open === true) {
+      return db.closeAsync().then(function() {
         db = null;
-        resolve();
-      }
-    });
+        return;
+      });
+    } else {
+      db = null;
+      return;
+    }
   },
 
   getCombination: function(arr) {
@@ -148,7 +151,9 @@ module.exports = {
       let insertStmt = 'INSERT INTO ' + tblName + ' VALUES (' + preCol.join(',') + ')';
       return db.prepare(insertStmt);
     }.bind(this)).then(function(result) {
-      stmt = prom.promisifyAll(result);
+
+      stmt.runAsync = util.promisify(stmt.run);
+      stmt.finalizeAsync = util.promisify(stmt.finalize);
 
       let promises = [];
       for (let row = 0; row < tblData.length; row++) {
@@ -191,7 +196,7 @@ module.exports = {
         }
         promises.push(stmt.runAsync(vals));
       }
-      return prom.all(promises);
+      return Promise.all(promises);
     }).then(function() {
       return stmt.finalizeAsync();
     });
