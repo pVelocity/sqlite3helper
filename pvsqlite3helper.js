@@ -28,7 +28,6 @@ module.exports = {
       db = new sqlite3.Database(':memory:');
       db.closeAsync = util.promisify(db.close);
       db.runAsync = util.promisify(db.run);
-      db.prepareAsync = util.promisify(db.prepare);
       db.allAsync = util.promisify(db.all);
       db.eachAsync = util.promisify(db.each);
     }
@@ -149,9 +148,7 @@ module.exports = {
         preCol.push('?');
       }
       let insertStmt = 'INSERT INTO ' + tblName + ' VALUES (' + preCol.join(',') + ')';
-      return db.prepare(insertStmt);
-    }.bind(this)).then(function(result) {
-
+      stmt = db.prepare(insertStmt);
       stmt.runAsync = util.promisify(stmt.run);
       stmt.finalizeAsync = util.promisify(stmt.finalize);
 

@@ -23,7 +23,7 @@
   "homepage": "https://github.com/pVelocity/pvsqlite3helper#readme",
   "dependencies": {
     "fs-extra": "^9.0.1",
-    "pvjs": "^1.1.3",
+    "pvjs": "^1.1.4",
     "sqlite3": "^4.2.0"
   }
 }

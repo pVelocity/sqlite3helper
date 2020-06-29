@@ -4,9 +4,6 @@
 /* jshint strict: true */
 /* jshint node: true */
 /* jshint unused: false */
-
-const path = require('path');
-const crypto = require('crypto');
 let root = (typeof window === 'undefined') ? global : window;
 
 (function(root) {
@@ -103,34 +100,23 @@ let root = (typeof window === 'undefined') ? global : window;
   root.PV.randomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
-  root.PV.createHash = function(txt, len) {
-    let hash = crypto.createHash('sha256').update(txt).digest('hex');
-    if (PV.isNumber(len) === false) {
-      len = 32;
-    }
-    hash = hash.slice(hash, len);
-    return hash;
-  };
+  if (typeof window !== 'undefined') {
+    root.PV.createHash = function(txt, len) {
+      const crypto = require('crypto');
+      let hash = crypto.createHash('sha256').update(txt).digest('hex');
+      if (PV.isNumber(len) === false) {
+        len = 32;
+      }
+      hash = hash.slice(hash, len);
+      return hash;
+    };
+  }
   root.PV.createGuid = function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       let r = Math.random() * 16 | 0,
         v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
-  };
-  root.PV.pathJoin = function(dir, dirname, delimiter) {
-    if (PV.isString(delimiter) === false) {
-      delimiter = '/';
-    }
-    if (PV.isString(dir)) {
-      let dirArray = dir.split(delimiter);
-      if (dirArray[0] === '.') {
-        dirArray[0] = dirname;
-      }
-      return path.join.apply(this, dirArray);
-    } else {
-      return dir;
-    }
   };
   root.PV.deepCopy = function(obj) {
     if (PV.isArray(obj)) {

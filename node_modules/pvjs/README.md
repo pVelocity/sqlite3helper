@@ -84,7 +84,6 @@ require('pvjs');
 - [randomInt](docs/utility/randomInt.md)
 - [createHash](docs/utility/createHash.md)
 - [createGuid](docs/utility/createGuid.md)
-- [pathJoin](docs/utility/pathJoin.md)
 - [deepCopy](docs/utility/deepCopy.md)
 - [deepCopyJSonObj](docs/utility/deepCopyJSonObj.md)
 - [updateObjWithSameSchema](docs/utility/updateObjWithSameSchema.md)
